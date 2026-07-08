@@ -1,5 +1,0 @@
-[1,"==> quarto preview index.qmd --to html --no-watch-inputs --no-browse\n\n"]
-[1,"'\\\\wsl.localhost\\Ubuntu-22.04\\root\\IST\\Thesis\\sa-uta21-results\\web'\r\nCMD.EXE was started with the above path as the current directory.\r\nUNC paths are not supported.  Defaulting to Windows directory.\r\n\n"]
-[1,"pandoc \n  to: html\n  output-file: index.html\n  standalone: true\n  section-divs: true\n  html-math-method: mathjax\n  wrap: none\n  default-image-extension: png\n  variables: {}\n  \nmetadata\n  document-css: false\n  link-citations: true\n  date-format: long\n  lang: en\n  title: UTA21 Statistical Analysis Charts\n  editor: visual\n  \n"]
-[1,"Output created: index.html\n\nWatching files for changes\n"]
-[1,"Browse at http://localhost:4252/\n"]
