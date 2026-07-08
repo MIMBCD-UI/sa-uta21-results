@@ -1,0 +1,51 @@
+---
+title: "UTA21 Statistical Analysis Charts"
+format: html
+editor: visual
+---
+
+## Time on Task
+
+#### Bar Charts
+
+![](plots/time_on_task/time_on_task_comparison.png)
+
+![](plots/time_on_task/time_on_task_comparison_expertise.png)
+
+#### Box Plots
+
+![](plots/time_on_task/time_on_task_distribution.png)
+
+![](plots/time_on_task/time_on_task_distribution_expertise.png)
+
+## Questionnaire Answers
+
+### System Usability Scale
+
+![](plots/questionnaire_answers/sus_boxplot_combined.png)
+
+![](plots/questionnaire_answers/sus_boxplot_separated_condition.png)
+
+![](plots/questionnaire_answers/sus_boxplot_separated_expertise.png)
+
+![](plots/questionnaire_answers/sus_boxplot_separated_expertise_condition.png)
+
+### NASA Task Load 
+
+![](plots/questionnaire_answers/nasatlx_boxplot_combined.png)
+
+![](plots/questionnaire_answers/nasatlx_boxplot_separated_condition.png)
+
+![](plots/questionnaire_answers/nasatlx_boxplot_separated_expertise.png)
+
+![](plots/questionnaire_answers/nasatlx_boxplot_separated_expertise_condition.png)
+
+### Trust in Automation
+
+![](plots/questionnaire_answers/tia_boxplot_combined.png)
+
+![](plots/questionnaire_answers/tia_boxplot_separated_condition.png)
+
+![](plots/questionnaire_answers/tia_boxplot_separated_expertise.png)
+
+![](plots/questionnaire_answers/tia_boxplot_separated_expertise_condition.png)

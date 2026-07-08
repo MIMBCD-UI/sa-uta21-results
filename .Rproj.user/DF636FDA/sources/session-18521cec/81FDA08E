@@ -1,0 +1,32 @@
+{
+    "id": "81FDA08E",
+    "path": "//wsl.localhost/Ubuntu-22.04/root/IST/Thesis/sa-uta21-results/web/uta21_sac.qmd",
+    "project_path": "web/uta21_sac.qmd",
+    "type": "quarto_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1783466231475.0,
+    "source_on_save": false,
+    "relative_order": 1,
+    "properties": {
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "46,48",
+        "scrollLine": "36",
+        "docOutlineVisible": "1",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "249:400"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1783468921,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1783468919989,
+    "read_only": false,
+    "read_only_alternatives": []
+}

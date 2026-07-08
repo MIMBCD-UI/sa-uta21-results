@@ -1,0 +1,37 @@
+# Install required packages if you haven't already:
+install.packages(c("readr", "dplyr", "tidyr", "ggplot2", "stringr"))
+
+library(readr)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(stringr)
+
+# 1. Read the CSV file, skipping the first row (which contains category groups like "SUS")
+df <- read_csv("UTA 21 Data - questionnaire_answers.csv", skip = 1)
+
+# 2. Select the 10 SUS questions (columns 6 to 15)
+sus_data <- df %>% select(6:15)
+
+# 3. Convert the data from wide to long format for ggplot2
+sus_long <- sus_data %>%
+  pivot_longer(cols = everything(), names_to = "Question", values_to = "Score")
+
+# 4. Wrap long question text for better readability on the Y-axis
+sus_long$Question <- str_wrap(sus_long$Question, width = 55)
+
+# 5. Create the boxplot
+ggplot(sus_long, aes(x = Score, y = Question, fill = Question)) +
+  geom_boxplot(show.legend = FALSE, alpha = 0.7, color = "darkgray") +
+  scale_x_continuous(breaks = 1:5) +
+  theme_minimal() +
+  labs(
+    title = "System Usability Scale (SUS) Responses",
+    x = "Likert Scale Score",
+    y = NULL
+  ) +
+  theme(
+    plot.title = element_text(face = "bold", size = 14, hjust = 0.5),
+    axis.text.y = element_text(size = 9),
+    panel.grid.minor = element_blank()
+  )
