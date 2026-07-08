@@ -216,3 +216,19 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# History and Workspace
+.RData
+.Rhistory
+.Rapp.history
+.Ruserdata
+
+# RStudio specific files
+.Rproj.user/
+
+# Quarto and R Markdown specific files
+/.quarto/
+/_site/
+*_files/
+*_cache/
+*.html
