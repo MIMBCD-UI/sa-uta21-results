@@ -141,7 +141,7 @@ cd$n_mod      <- ifelse(cd$case_id %in% two_modality_cases, 2, 3)
 first_rows <- cd[cd$block == 1, ]
 first_cond <- tapply(first_rows$cond, first_rows$participant_id, function(x) x[1])
 
-section("6.1 Realized sample and allocation")
+section("Realized sample and allocation")
 cat("Observations:", nrow(cd),
     "| repeats:", sum(cd$repeat_obs),
     "| repeats in second block:", sum(cd$repeat_obs & cd$block == 2), "\n")
@@ -157,7 +157,7 @@ print(table(cd$cond, factor(cd$level_a, levels = c("Low", "Moderate", "High"))))
 cat("\nObservations on cases with all three modalities:\n")
 print(table(cd$cond[cd$n_mod == 3]))
 
-section("6.2.4 Time on task (seconds)")
+section("Time on task (seconds)")
 print(t(sapply(split(cd$tot, cd$cond), summ)))
 print(t(sapply(split(cd$tot, cd$block), summ)))
 cat("\nBy number of modalities:\n")
@@ -166,7 +166,7 @@ print(round(tapply(cd$tot, list(modalities = cd$n_mod, cond = cd$cond), mean), 1
 cat("\nBy experience group:\n")
 print(round(tapply(cd$tot, list(group = cd$expertise_level, cond = cd$cond), mean), 1))
 
-section("6.2.5 Concordance with the assistant")
+section("Concordance with the assistant")
 band_report(cd, "All observations")
 band_report(cd[!cd$repeat_obs, ], "Excluding repeated observations")
 dep <- cd[!cd$exact & !cd$zero, ]
@@ -174,14 +174,14 @@ dep$direction <- ifelse(dep$birads_radiologist > dep$birads_assistant, "up", "do
 cat("\nDirection of departures (excluding BI-RADS 0):\n")
 print(table(dep$cond, dep$direction))
 
-section("6.3.4 Concordance by experience group")
+section("Concordance by experience group")
 cat("Exact agreement per participant:\n")
 print(round(tapply(cd$exact, list(participant = cd$participant_id, cond = cd$cond), mean), 2))
 for (g in c("expert", "novice")) {
   band_report(cd[cd$expertise_level == g, ], paste("Group:", g))
 }
 
-section("6.4 Concordance by suspicion level")
+section("Concordance by suspicion level")
 for (lvl in c("Low", "Moderate", "High")) {
   band_report(cd[cd$level_a == lvl, ], paste("Level:", lvl))
   band_report(cd[cd$level_a == lvl & !cd$repeat_obs, ],
@@ -197,7 +197,7 @@ mm <- cd[cd$level_a == "Moderate",
            "birads_assistant", "birads_radiologist", "repeat_obs")]
 print(mm[order(mm$case_id, mm$cond), ], row.names = FALSE)
 
-section("6.4.2 BI-RADS 0 responses")
+section("BI-RADS 0 responses")
 print(cd[cd$zero, c("participant_id", "expertise_level", "cond", "case_id",
                     "birads_assistant", "n_mod")], row.names = FALSE)
 
@@ -233,7 +233,7 @@ by_cond <- function(var) {
              stringsAsFactors = FALSE)
 }
 
-section("6.2.1-6.2.3 Questionnaire means by condition")
+section("Questionnaire means by condition")
 print(round(t(sapply(measures, function(v) tapply(q[[v]], q$cond, mean))), 2))
 for (v in c("SUS", "NASA-TLX")) {
   cat("\nPer participant:", v, "\n")
@@ -243,7 +243,7 @@ for (v in c("SUS", "NASA-TLX")) {
   print(w, row.names = FALSE)
 }
 
-section("6.2.7 Paired differences (C2 minus C1), n = 8")
+section("Paired differences (C2 minus C1), n = 8")
 tot_pp <- aggregate(tot ~ participant_id + cond, data = cd, FUN = mean)
 tot_c1 <- tot_pp[tot_pp$cond == "C1", ]
 tot_c2 <- tot_pp[tot_pp$cond == "C2", ]
@@ -264,7 +264,7 @@ for (v in measures) {
 cat("\nExcluding P6 (mean paired difference):\n")
 print(round(colMeans(diffs[diffs$participant_id != "P6", measures]), 2))
 
-section("6.2.6 Paired differences by condition completed first")
+section("Paired differences by condition completed first")
 diffs$began <- as.vector(first_cond[diffs$participant_id])
 zero_small <- function(x) { x[abs(x) < 1e-9] <- 0; x }  # avoid printing -0.00
 for (b in c("C1", "C2", "All")) {
@@ -276,7 +276,7 @@ for (b in c("C1", "C2", "All")) {
               zero_small(mean(diffs[["Trust in Automation"]][sel]))))
 }
 
-section("6.3 By experience group")
+section("By experience group")
 grp_means <- t(sapply(measures, function(v) {
   mt <- tapply(q[[v]], list(q$expertise_level, q$cond), mean)
   c(expert_C1 = mt["expert", "C1"], expert_C2 = mt["expert", "C2"],
@@ -307,8 +307,8 @@ col_grp   <- c(expert = "#2a78d6", novice = "#eb6834")
 count_ramp <- c("#cde2fb", "#9ec5f4", "#6da7ec", "#3987e5", "#256abf", "#184f95")
 
 open_fig <- function(name, width, height) {
-  pdf(file.path(out_dir, name), width = width, height = height,
-      pointsize = 9, family = "Helvetica", useDingbats = FALSE)
+  png(file.path(out_dir, name), width = width, height = height, units = "in",
+      res = 300, pointsize = 9, family = "sans", bg = "white")
   par(fg = axis_col)  # axis lines and ticks; also resets col, so set col after
   par(col = ink, col.axis = ink2, col.lab = muted, col.main = ink,
       las = 1, tcl = -0.2, mgp = c(1.8, 0.45, 0))
@@ -357,7 +357,7 @@ dumbbell_panel <- function(var, xlim, ticks, title, show_ids) {
   mtext(title, side = 3, line = 0.5, adj = 0, cex = 0.85, col = ink, font = 2)
 }
 
-f1 <- "questionnaires_dumbbell.pdf"
+f1 <- "questionnaires_dumbbell.png"
 open_fig(f1, width = 6.3, height = 3.1)
 layout(matrix(1:3, nrow = 1), widths = c(1.35, 1, 1))
 par(oma = c(0, 0, 2, 0))
@@ -397,7 +397,7 @@ forest_panel <- function(names_in, xlab, show_top = FALSE) {
   mtext(xlab, side = 1, line = 1.5, cex = 0.7, col = muted)
 }
 
-f2 <- "paired_differences_forest.pdf"
+f2 <- "paired_differences_forest.png"
 open_fig(f2, width = 6.3, height = 4.2)
 layout(matrix(1:4, ncol = 1), heights = c(1, 1, 1, 2.6))
 par(mar = c(2.6, 12.5, 0.8, 1.2), oma = c(0, 0, 1.4, 0))
@@ -410,7 +410,7 @@ mtext("Mean paired difference (C2 minus C1) with 95% CI", side = 3, outer = TRUE
 close_fig(f2)
 
 # --- Figure 3: time on task, every observation --------------------------------
-f3 <- "time_on_task_boxplot.pdf"
+f3 <- "time_on_task_boxplot.png"
 groups <- list(
   list(x = 1, sel = cd$cond == "C1",  lab = "C1"),
   list(x = 2, sel = cd$cond == "C2",  lab = "C2"),
@@ -478,7 +478,7 @@ grid_panel <- function(cond, title) {
         cex = 0.85, col = ink, font = 2)
 }
 
-f4 <- "birads_grid.pdf"
+f4 <- "birads_grid.png"
 open_fig(f4, width = 6.3, height = 3.3)
 par(mfrow = c(1, 2), mar = c(3, 3, 2, 1))
 grid_panel("C1", "C1 Clinical-First")
