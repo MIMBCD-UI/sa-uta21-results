@@ -12,7 +12,7 @@
 ## Data
 - `data/mimbcdui_uta21_case_data.csv`: one row per observation (48). Columns: `scenario_id`, `participant_id`, `category_level`, `expertise_level`, `condition` (1 = C1, 2 = C2), `case_id`, `time_on_task` (h:mm:ss), `birads_assistant`, `birads_radiologist`, `action` (`accept`, `edit->accept`, `reject`). In C2, `birads_radiologist` may also record the level the participant selected, e.g. `4 (H)`; only the number is used for agreement. Time on task, the final BI-RADS and the action were coded from the session screen recordings.
 - `data/mimbcdui_uta21_questionnaire_answers.csv`: one row per participant and condition (16), with the SUS (items 1-10), NASA-TLX (items 11-16) and TiA (items 17-35) answers in the order administered.
-- `data/case_provenance.csv`: the source of each case in the UTA11 rates and DICOM datasets (patient identifier, BI-RADS field used, dataset commits).
+- `data/mimbcdui_uta21_case_provenance.csv`: the source of each case in the UTA11 rates and DICOM datasets (patient identifier, BI-RADS field used, dataset commits).
 
 Participants are identified only by code (P2-P4, P6-P10).
 
