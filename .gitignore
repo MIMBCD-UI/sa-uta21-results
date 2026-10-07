@@ -222,6 +222,7 @@ __marimo__/
 .Rhistory
 .Rapp.history
 .Ruserdata
+.RDataTmp
 
 # RStudio specific files
 .Rproj.user/
