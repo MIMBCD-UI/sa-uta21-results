@@ -18,6 +18,10 @@
 #     (e.g. +5/6 and -5/6 on NASA-TLX) tie exactly despite floating-point
 #     error. R's default wilcox.test would instead use a normal approximation
 #     here because of ties and zeros.
+#   - Actions (accept, edit->accept, reject) were coded from the OBS screen
+#     recordings and are reported as counts per condition. In C2, a BI-RADS
+#     cell may carry the level the participant selected, e.g. "4 (H)";
+#     participants were not shown the mapping, so it can differ from it.
 #   - Usage: Rscript uta21_analysis.R [case_csv] [questionnaire_csv] [out_dir] [log_file]
 #     Figures and the printed results (default: uta21_analysis_results.txt)
 #     are written to out_dir (default: output/).
@@ -149,8 +153,8 @@ paired_row <- function(name, a, b) {
 cd <- read.csv(case_csv, check.names = FALSE, strip.white = TRUE,
                stringsAsFactors = FALSE)
 names(cd) <- trimws(names(cd))
-# Keep the analysis columns by name: the file also carries an `action` column
-# and unnamed note/legend columns, which are ignored.
+# Keep the analysis columns by name (plus `action`); unnamed note/legend
+# columns in the file are ignored.
 case_cols <- c("scenario_id", "participant_id", "category_level", "expertise_level",
                "condition", "case_id", "time_on_task",
                "birads_assistant", "birads_radiologist")
@@ -166,6 +170,9 @@ parse_birads <- function(x) {
                             paste(unique(x[is.na(num)]), collapse = ", "))
   num
 }
+# Level the participant selected in C2, when the cell carries one, e.g. "4 (H)".
+cd$level_selected <- ifelse(grepl("\\([LMH]\\)", cd$birads_radiologist),
+                            sub("^.*\\(([LMH])\\).*$", "\\1", cd$birads_radiologist), NA)
 cd$birads_assistant   <- parse_birads(cd$birads_assistant)
 cd$birads_radiologist <- parse_birads(cd$birads_radiologist)
 cd$cond       <- ifelse(cd$condition == 1, "C1", "C2")
@@ -242,6 +249,44 @@ print(mm[order(mm$case_id, mm$cond), ], row.names = FALSE)
 section("BI-RADS 0 responses")
 print(cd[cd$zero, c("participant_id", "expertise_level", "cond", "case_id",
                     "birads_assistant", "n_mod")], row.names = FALSE)
+
+section("Actions on the suggestion")
+stopifnot("action" %in% names(cd))
+cd$action <- factor(trimws(cd$action), levels = c("accept", "edit->accept", "reject"))
+if (any(is.na(cd$action))) stop("Unknown or missing action value(s)")
+cat("By condition (out of 24 observations each):\n")
+print(addmargins(table(cond = cd$cond, action = cd$action), 2))
+cat("\nBy experience group and condition:\n")
+print(ftable(table(group = cd$expertise_level, cond = cd$cond, action = cd$action)))
+cat("\nExcluding repeated observations:\n")
+print(addmargins(table(cond = cd$cond[!cd$repeat_obs], action = cd$action[!cd$repeat_obs]), 2))
+cat("\nExcluding P6:\n")
+print(addmargins(table(cond = cd$cond[cd$participant_id != "P6"],
+                       action = cd$action[cd$participant_id != "P6"]), 2))
+cat("\nPer participant:\n")
+print(ftable(table(participant = cd$participant_id, cond = cd$cond, action = cd$action)))
+cat("\nBy suspicion level of the assistant's output:\n")
+print(ftable(table(cond = cd$cond,
+                   level = factor(cd$level_a, levels = c("Low", "Moderate", "High")),
+                   action = cd$action)))
+cat("\nFinal category different from the assistant's (excluding BI-RADS 0), by action:\n")
+chg <- !cd$exact & !cd$zero
+print(table(cond = cd$cond[chg], action = cd$action[chg]))
+cat("\nBI-RADS 0 responses, by action:\n")
+print(table(cond = cd$cond[cd$zero], action = cd$action[cd$zero]))
+cat("\nC2 rejections whose final category falls within the level presented:\n")
+print(cd[cd$cond == "C2" & cd$action == "reject" & cd$band,
+         c("participant_id", "cond", "case_id", "birads_assistant", "birads_radiologist")],
+      row.names = FALSE)
+cat("\nC2 acceptances whose final category falls outside the level presented:\n")
+print(cd[cd$cond == "C2" & cd$action == "accept" & !cd$band & !cd$zero,
+         c("participant_id", "cond", "case_id", "birads_assistant", "birads_radiologist")],
+      row.names = FALSE)
+cat("\nSelected level differing from the mapping of the recorded category:\n")
+map_letter <- c(Low = "L", Moderate = "M", High = "H")[cd$level_r]
+sel <- !is.na(cd$level_selected) & !is.na(map_letter) & cd$level_selected != map_letter
+print(cd[sel, c("participant_id", "cond", "case_id", "birads_assistant",
+                "birads_radiologist", "level_selected", "action")], row.names = FALSE)
 
 # ---------------------------------------------------------------------------
 # Questionnaires

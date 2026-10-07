@@ -1,4 +1,4 @@
-Run: 2026-10-07 06:27:34 WEST | R version 4.5.1 (2025-06-13 ucrt) 
+Run: 2026-10-07 08:01:28 WEST | R version 4.5.1 (2025-06-13 ucrt) 
 Case data: data/mimbcdui_uta21_case_data.csv | Questionnaires: data/mimbcdui_uta21_questionnaire_answers.csv 
 
 ==============================================================================
@@ -170,6 +170,90 @@ BI-RADS 0 responses
              P4          expert   C2     c02                1     2
              P4          expert   C2     c07                4     2
              P7          expert   C2     c10                5     3
+
+==============================================================================
+Actions on the suggestion
+==============================================================================
+By condition (out of 24 observations each):
+    action
+cond accept edit->accept reject Sum
+  C1     15            5      4  24
+  C2     12            2     10  24
+
+By experience group and condition:
+            action accept edit->accept reject
+group  cond                                  
+expert C1               8            1      3
+       C2               4            0      8
+novice C1               7            4      1
+       C2               8            2      2
+
+Excluding repeated observations:
+    action
+cond accept edit->accept reject Sum
+  C1     13            5      3  21
+  C2      8            1      8  17
+
+Excluding P6:
+    action
+cond accept edit->accept reject Sum
+  C1     14            4      3  21
+  C2     12            2      7  21
+
+Per participant:
+                 action accept edit->accept reject
+participant cond                                  
+P10         C1               3            0      0
+            C2               2            0      1
+P2          C1               1            1      1
+            C2               2            0      1
+P3          C1               0            3      0
+            C2               1            2      0
+P4          C1               3            0      0
+            C2               1            0      2
+P6          C1               1            1      1
+            C2               0            0      3
+P7          C1               3            0      0
+            C2               1            0      2
+P8          C1               1            0      2
+            C2               2            0      1
+P9          C1               3            0      0
+            C2               3            0      0
+
+By suspicion level of the assistant's output:
+              action accept edit->accept reject
+cond level                                     
+C1   Low                  7            4      3
+     Moderate             6            1      1
+     High                 2            0      0
+C2   Low                  7            0      3
+     Moderate             1            2      5
+     High                 4            0      2
+
+Final category different from the assistant's (excluding BI-RADS 0), by action:
+    action
+cond accept edit->accept reject
+  C1      0            5      4
+  C2      4            1      6
+
+BI-RADS 0 responses, by action:
+    action
+cond accept edit->accept reject
+  C2      0            0      3
+
+C2 rejections whose final category falls within the level presented:
+ participant_id cond case_id birads_assistant birads_radiologist
+             P6   C2     c08                4                  3
+             P6   C2     c03                2                  2
+
+C2 acceptances whose final category falls outside the level presented:
+ participant_id cond case_id birads_assistant birads_radiologist
+             P4   C2     c04                2                  3
+
+Selected level differing from the mapping of the recorded category:
+ participant_id cond case_id birads_assistant birads_radiologist level_selected       action
+             P3   C2     c08                4                  4              H edit->accept
+             P4   C2     c04                2                  3              L       accept
 
 ==============================================================================
 Questionnaire means by condition
