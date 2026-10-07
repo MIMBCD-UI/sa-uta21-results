@@ -191,7 +191,7 @@
 ## Reproducing
 
 ```bash
-Rscript uta21_analysis.R data/mimbcdui_uta21_case_data.csv data/mimbcdui_uta21_questionnaire_answers.csv output
+Rscript src/uta21_analysis.R data/mimbcdui_uta21_case_data.csv data/mimbcdui_uta21_questionnaire_answers.csv output uta21_analysis_results.txt
 ```
 
-Base R only; no packages required. All three arguments are optional and default to the paths shown. The script prints every value above and writes the four figures to `output/` as PDF.
+Base R only; no packages required. All four arguments are optional and default to the values shown (case data, questionnaire answers, output folder, results file), resolved from the working directory. The script prints every value above and also saves that printout, headed by the run date, the R version and the input files, to `output/uta21_analysis_results.txt`. It writes the four figures to `output/` as PNG.
