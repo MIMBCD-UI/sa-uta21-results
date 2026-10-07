@@ -1,0 +1,275 @@
+Run: 2026-10-07 06:27:34 WEST | R version 4.5.1 (2025-06-13 ucrt) 
+Case data: data/mimbcdui_uta21_case_data.csv | Questionnaires: data/mimbcdui_uta21_questionnaire_answers.csv 
+
+==============================================================================
+Realized sample and allocation
+==============================================================================
+Observations: 48 | repeats: 10 | repeats in second block: 10 
+
+Repeated observations:
+ participant_id cond case_id
+             P3   C2     c01
+             P3   C2     c06
+             P2   C2     c02
+             P2   C2     c07
+             P6   C2     c03
+             P4   C1     c04
+             P7   C2     c05
+             P8   C1     c01
+             P9   C2     c02
+            P10   C1     c03
+
+Condition completed first:
+ P10   P2   P3   P4   P6   P7   P8   P9 
+"C2" "C1" "C1" "C2" "C1" "C1" "C2" "C1" 
+
+Condition completed first, by experience group:
+        began
+group    C1 C2
+  expert  2  2
+  novice  3  1
+
+Case mix by suspicion level
+    
+     Low Moderate High
+  C1  14        8    2
+  C2  10        8    6
+
+Observations on cases with all three modalities:
+
+C1 C2 
+15 14 
+
+==============================================================================
+Time on task (seconds)
+==============================================================================
+    n  mean median   sd
+C1 24 135.1  128.5 73.2
+C2 24 136.5  145.5 68.6
+   n  mean median   sd
+1 24 159.9  156.5 66.7
+2 24 111.7   95.5 66.4
+
+By number of modalities:
+   n  mean median   sd
+2 19 112.3     98 54.4
+3 29 151.2    153 75.8
+          cond
+modalities    C1    C2
+         2 106.6 117.5
+         3 152.2 150.1
+
+By experience group:
+        n  mean median   sd
+expert 24 121.5    110 69.0
+novice 24 150.0    146 69.9
+        cond
+group       C1    C2
+  expert 103.2 139.8
+  novice 166.9 133.2
+
+==============================================================================
+Concordance with the assistant
+==============================================================================
+
+All observations
+  C1: band excl. BI-RADS 0 18/24 (75.0%) | band, 0 as departure 18/24 (75.0%) | exact 15/24 (62.5%) | exact excl. BI-RADS 0 15/24 (62.5%)
+  C2: band excl. BI-RADS 0 14/21 (66.7%) | band, 0 as departure 14/24 (58.3%) | exact 10/24 (41.7%) | exact excl. BI-RADS 0 10/21 (47.6%)
+
+Excluding repeated observations
+  C1: band excl. BI-RADS 0 15/21 (71.4%) | band, 0 as departure 15/21 (71.4%) | exact 13/21 (61.9%) | exact excl. BI-RADS 0 13/21 (61.9%)
+  C2: band excl. BI-RADS 0 9/14 (64.3%) | band, 0 as departure 9/17 (52.9%) | exact 7/17 (41.2%) | exact excl. BI-RADS 0 7/14 (50.0%)
+
+Direction of departures (excluding BI-RADS 0):
+    
+     down up
+  C1    1  8
+  C2    3  8
+
+==============================================================================
+Concordance by experience group
+==============================================================================
+Exact agreement per participant:
+           cond
+participant   C1   C2
+        P10 1.00 0.67
+        P2  0.33 0.33
+        P3  0.00 0.33
+        P4  1.00 0.00
+        P6  0.33 0.33
+        P7  1.00 0.33
+        P8  0.33 0.33
+        P9  1.00 1.00
+
+Group: expert
+  C1: band excl. BI-RADS 0 10/12 (83.3%) | band, 0 as departure 10/12 (83.3%) | exact 8/12 (66.7%) | exact excl. BI-RADS 0 8/12 (66.7%)
+  C2: band excl. BI-RADS 0 5/9 (55.6%) | band, 0 as departure 5/12 (41.7%) | exact 3/12 (25.0%) | exact excl. BI-RADS 0 3/9 (33.3%)
+
+Group: novice
+  C1: band excl. BI-RADS 0 8/12 (66.7%) | band, 0 as departure 8/12 (66.7%) | exact 7/12 (58.3%) | exact excl. BI-RADS 0 7/12 (58.3%)
+  C2: band excl. BI-RADS 0 9/12 (75.0%) | band, 0 as departure 9/12 (75.0%) | exact 7/12 (58.3%) | exact excl. BI-RADS 0 7/12 (58.3%)
+
+==============================================================================
+Concordance by suspicion level
+==============================================================================
+
+Level: Low
+  C1: band excl. BI-RADS 0 9/14 (64.3%) | band, 0 as departure 9/14 (64.3%) | exact 7/14 (50.0%) | exact excl. BI-RADS 0 7/14 (50.0%)
+  C2: band excl. BI-RADS 0 7/9 (77.8%) | band, 0 as departure 7/10 (70.0%) | exact 4/10 (40.0%) | exact excl. BI-RADS 0 4/9 (44.4%)
+
+Level: Low (excluding repeats)
+  C1: band excl. BI-RADS 0 6/11 (54.5%) | band, 0 as departure 6/11 (54.5%) | exact 5/11 (45.5%) | exact excl. BI-RADS 0 5/11 (45.5%)
+  C2: band excl. BI-RADS 0 2/4 (50.0%) | band, 0 as departure 2/5 (40.0%) | exact 1/5 (20.0%) | exact excl. BI-RADS 0 1/4 (25.0%)
+
+Level: Moderate
+  C1: band excl. BI-RADS 0 7/8 (87.5%) | band, 0 as departure 7/8 (87.5%) | exact 6/8 (75.0%) | exact excl. BI-RADS 0 6/8 (75.0%)
+  C2: band excl. BI-RADS 0 3/7 (42.9%) | band, 0 as departure 3/8 (37.5%) | exact 2/8 (25.0%) | exact excl. BI-RADS 0 2/7 (28.6%)
+
+Level: Moderate (excluding repeats)
+  C1: band excl. BI-RADS 0 7/8 (87.5%) | band, 0 as departure 7/8 (87.5%) | exact 6/8 (75.0%) | exact excl. BI-RADS 0 6/8 (75.0%)
+  C2: band excl. BI-RADS 0 3/5 (60.0%) | band, 0 as departure 3/6 (50.0%) | exact 2/6 (33.3%) | exact excl. BI-RADS 0 2/5 (40.0%)
+
+Level: High
+  C1: band excl. BI-RADS 0 2/2 (100.0%) | band, 0 as departure 2/2 (100.0%) | exact 2/2 (100.0%) | exact excl. BI-RADS 0 2/2 (100.0%)
+  C2: band excl. BI-RADS 0 4/5 (80.0%) | band, 0 as departure 4/6 (66.7%) | exact 4/6 (66.7%) | exact excl. BI-RADS 0 4/5 (80.0%)
+
+Level: High (excluding repeats)
+  C1: band excl. BI-RADS 0 2/2 (100.0%) | band, 0 as departure 2/2 (100.0%) | exact 2/2 (100.0%) | exact excl. BI-RADS 0 2/2 (100.0%)
+  C2: band excl. BI-RADS 0 4/5 (80.0%) | band, 0 as departure 4/6 (66.7%) | exact 4/6 (66.7%) | exact excl. BI-RADS 0 4/5 (80.0%)
+
+Moderate cases, per case (band agreement, excluding BI-RADS 0):
+     cond
+case  C1    C2   
+  c06 "4/5" "0/1"
+  c07 "1/1" "1/3"
+  c08 "2/2" "2/3"
+
+Moderate observations in detail:
+ participant_id cond block case_id birads_assistant birads_radiologist repeat_obs
+             P3   C1     1     c06                3                  2      FALSE
+             P6   C1     1     c06                3                  3      FALSE
+             P4   C1     2     c06                3                  3      FALSE
+             P8   C1     2     c06                3                  4      FALSE
+            P10   C1     2     c06                3                  3      FALSE
+             P3   C2     2     c06                3                  2       TRUE
+             P2   C1     1     c07                4                  4      FALSE
+             P2   C2     2     c07                4                  5       TRUE
+             P4   C2     1     c07                4                  0      FALSE
+             P7   C2     2     c07                4                  5      FALSE
+             P9   C2     2     c07                4                  4      FALSE
+             P7   C1     1     c08                4                  4      FALSE
+             P8   C1     2     c08                4                  4      FALSE
+             P3   C2     2     c08                4                  4      FALSE
+             P6   C2     2     c08                4                  3      FALSE
+            P10   C2     1     c08                4                  5      FALSE
+
+==============================================================================
+BI-RADS 0 responses
+==============================================================================
+ participant_id expertise_level cond case_id birads_assistant n_mod
+             P4          expert   C2     c02                1     2
+             P4          expert   C2     c07                4     2
+             P7          expert   C2     c10                5     3
+
+==============================================================================
+Questionnaire means by condition
+==============================================================================
+                                C1    C2
+SUS                          72.50 58.44
+NASA-TLX                      4.17  4.65
+Reliability/Competence        3.21  2.50
+Understanding/Predictability  3.59  2.84
+Familiarity                   3.88  2.94
+Intention of Developers       3.81  3.56
+Propensity to Trust           3.00  2.62
+Trust in Automation           3.12  2.44
+
+Per participant: SUS 
+ participant_id   C1   C2
+            P10 62.5 75.0
+             P2 30.0 30.0
+             P3 90.0 95.0
+             P4 97.5 42.5
+             P6 90.0  5.0
+             P7 65.0 65.0
+             P8 75.0 75.0
+             P9 70.0 80.0
+
+Per participant: NASA-TLX 
+ participant_id   C1   C2
+            P10 5.33 4.67
+             P2 7.00 7.00
+             P3 3.33 2.33
+             P4 2.83 4.33
+             P6 1.00 5.50
+             P7 2.33 3.17
+             P8 5.67 4.83
+             P9 5.83 5.33
+
+==============================================================================
+Paired differences (C2 minus C1), n = 8
+==============================================================================
+                      measure M_diff CI_low CI_high   d_z  r_rb    W     p decreased increased unchanged
+             Time on task (s)   1.42 -68.76   71.59  0.02  0.11 16.0 0.844         3         5         0
+                          SUS -14.06 -43.95   15.83 -0.39 -0.20  6.0 0.812         2         3         3
+                     NASA-TLX   0.48  -1.06    2.02  0.26  0.18 11.5 0.734         4         3         1
+       Reliability/Competence  -0.71  -1.46    0.04 -0.79 -1.00  0.0 0.016         7         0         1
+ Understanding/Predictability  -0.75  -2.04    0.54 -0.49 -0.36 11.5 0.414         5         3         0
+                  Familiarity  -0.94  -2.44    0.57 -0.52 -0.60  3.0 0.312         4         1         3
+      Intention of Developers  -0.25  -0.88    0.38 -0.33 -0.50  1.5 0.750         2         1         5
+          Propensity to Trust  -0.38  -1.00    0.25 -0.50 -1.00  0.0 0.500         2         0         6
+          Trust in Automation  -0.69  -1.66    0.28 -0.59 -1.00  0.0 0.250         3         0         5
+
+Excluding P6 (mean paired difference):
+                         SUS                     NASA-TLX       Reliability/Competence Understanding/Predictability                  Familiarity 
+                       -3.93                        -0.10                        -0.45                        -0.43                        -0.50 
+     Intention of Developers          Propensity to Trust          Trust in Automation 
+                        0.00                        -0.14                        -0.36 
+
+==============================================================================
+Paired differences by condition completed first
+==============================================================================
+Began with C1  (n = 5): SUS  -14.00 | NASA-TLX  0.77 | Trust in Automation -0.70
+Began with C2  (n = 3): SUS  -14.17 | NASA-TLX  0.00 | Trust in Automation -0.67
+Began with All (n = 8): SUS  -14.06 | NASA-TLX  0.48 | Trust in Automation -0.69
+
+==============================================================================
+By experience group
+==============================================================================
+                             expert_C1 expert_C2 novice_C1 novice_C2
+SUS                              81.88     46.88     63.12     70.00
+NASA-TLX                          2.96      4.46      5.38      4.83
+Reliability/Competence            3.42      2.25      3.00      2.75
+Understanding/Predictability      4.00      2.56      3.19      3.12
+Familiarity                       4.25      2.25      3.50      3.62
+Intention of Developers           4.25      3.88      3.38      3.25
+Propensity to Trust               3.42      2.92      2.58      2.33
+Trust in Automation               3.50      2.12      2.75      2.75
+
+Per-participant paired differences:
+ participant_id  group   SUS NASA-TLX Reliability/Competence Understanding/Predictability Familiarity Intention of Developers Propensity to Trust
+             P4 expert -55.0     1.50                  -1.67                        -3.25        -3.5                     0.0                   0
+             P6 expert -85.0     4.50                  -2.50                        -3.00        -4.0                    -2.0                  -2
+             P7 expert   0.0     0.83                   0.00                         0.75        -0.5                     0.5                   0
+             P8 expert   0.0    -0.83                  -0.50                        -0.25         0.0                     0.0                   0
+            P10 novice  12.5    -0.67                  -0.17                         0.25        -0.5                     0.0                  -1
+             P2 novice   0.0     0.00                  -0.17                        -0.75         0.0                     0.0                   0
+             P3 novice   5.0    -1.00                  -0.50                        -0.25         0.0                    -0.5                   0
+             P9 novice  10.0    -0.50                  -0.17                         0.50         1.0                     0.0                   0
+ Trust in Automation
+                -2.0
+                -3.0
+                -0.5
+                 0.0
+                 0.0
+                 0.0
+                 0.0
+                 0.0
+
+==============================================================================
+Figures
+==============================================================================
+Wrote output/questionnaires_dumbbell.png 
+Wrote output/paired_differences_forest.png 
+Wrote output/time_on_task_boxplot.png 
+Wrote output/birads_grid.png 

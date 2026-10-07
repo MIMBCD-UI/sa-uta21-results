@@ -18,11 +18,34 @@
 #     (e.g. +5/6 and -5/6 on NASA-TLX) tie exactly despite floating-point
 #     error. R's default wilcox.test would instead use a normal approximation
 #     here because of ties and zeros.
+#   - Usage: Rscript uta21_analysis.R [case_csv] [questionnaire_csv] [out_dir] [log_file]
+#     Figures and the printed results (default: uta21_analysis_results.txt)
+#     are written to out_dir (default: output/).
 # =============================================================================
 
 args <- commandArgs(trailingOnly = TRUE)
 case_csv  <- if (length(args) >= 1) args[1] else "data/mimbcdui_uta21_case_data.csv"
 quest_csv <- if (length(args) >= 2) args[2] else "data/mimbcdui_uta21_questionnaire_answers.csv"
+out_dir   <- if (length(args) >= 3) args[3] else "output"
+log_file  <- if (length(args) >= 4) args[4] else "uta21_analysis_results.txt"
+dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
+
+# Everything printed below is shown on the console and also written to
+# <out_dir>/<log_file>. The sink is closed when the script ends, including on error.
+log_path <- file.path(out_dir, log_file)
+sink(log_path, split = TRUE)
+old_error <- getOption("error")
+close_log <- function() {
+  if (sink.number() > 0) sink()
+  options(error = old_error)
+  message("Results written to ", log_path)
+}
+options(error = function() {
+  close_log()
+  if (!interactive()) quit(status = 1, save = "no")  # never quit an RStudio session
+})
+cat("Run:", format(Sys.time(), "%Y-%m-%d %H:%M:%S %Z"), "|", R.version.string, "\n")
+cat("Case data:", case_csv, "| Questionnaires:", quest_csv, "\n")
 
 two_modality_cases <- c("c01", "c02", "c05", "c07")  # all other cases have 3
 
@@ -125,8 +148,26 @@ paired_row <- function(name, a, b) {
 # ---------------------------------------------------------------------------
 cd <- read.csv(case_csv, check.names = FALSE, strip.white = TRUE,
                stringsAsFactors = FALSE)
-cd <- cd[, 1:9]
 names(cd) <- trimws(names(cd))
+# Keep the analysis columns by name: the file also carries an `action` column
+# and unnamed note/legend columns, which are ignored.
+case_cols <- c("scenario_id", "participant_id", "category_level", "expertise_level",
+               "condition", "case_id", "time_on_task",
+               "birads_assistant", "birads_radiologist")
+stopifnot(all(case_cols %in% names(cd)))
+cd <- cd[, c(case_cols, intersect("action", names(cd)))]
+cd <- cd[!is.na(cd$condition) & nzchar(trimws(cd$participant_id)), ]
+# BI-RADS cells may carry a level annotation, e.g. "4 (M)"; only the leading
+# number is used, and suspicion levels are derived from it as before.
+parse_birads <- function(x) {
+  x <- trimws(as.character(x))
+  num <- suppressWarnings(as.integer(sub("^(\\d+).*$", "\\1", x)))
+  if (any(is.na(num))) stop("Unparseable BI-RADS value(s): ",
+                            paste(unique(x[is.na(num)]), collapse = ", "))
+  num
+}
+cd$birads_assistant   <- parse_birads(cd$birads_assistant)
+cd$birads_radiologist <- parse_birads(cd$birads_radiologist)
 cd$cond       <- ifelse(cd$condition == 1, "C1", "C2")
 cd$tot        <- to_seconds(cd$time_on_task)
 cd$block      <- (ave(seq_len(nrow(cd)), cd$participant_id, FUN = seq_along) - 1) %/% 3 + 1
@@ -164,6 +205,7 @@ cat("\nBy number of modalities:\n")
 print(t(sapply(split(cd$tot, cd$n_mod), summ)))
 print(round(tapply(cd$tot, list(modalities = cd$n_mod, cond = cd$cond), mean), 1))
 cat("\nBy experience group:\n")
+print(t(sapply(split(cd$tot, cd$expertise_level), summ)))
 print(round(tapply(cd$tot, list(group = cd$expertise_level, cond = cd$cond), mean), 1))
 
 section("Concordance with the assistant")
@@ -293,8 +335,6 @@ print(out, row.names = FALSE)
 # Figures
 # ---------------------------------------------------------------------------
 section("Figures")
-out_dir <- if (length(args) >= 3) args[3] else "output"
-dir.create(out_dir, showWarnings = FALSE, recursive = TRUE)
 
 ink       <- "#0b0b0b"  # primary text
 ink2      <- "#52514e"  # secondary text
@@ -484,3 +524,4 @@ par(mfrow = c(1, 2), mar = c(3, 3, 2, 1))
 grid_panel("C1", "C1 Clinical-First")
 grid_panel("C2", "C2 Regulatory-First")
 close_fig(f4)
+close_log()
