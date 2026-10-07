@@ -1,8 +1,20 @@
 # MIMBCD-UI UTA21 Evaluation Metrics & Psychometrics Analysis
 
 **Notes**
+- **C1 = Clinical-First** (the assistant presents a BI-RADS category); **C2 = Regulatory-First** (it presents a suspicion level derived from the same category).
 - Paired differences are **C2 minus C1** (negative = lower under the suspicion level).
-- Suspicion levels: Low = {1, 2}, Moderate = {3, 4}, High = {5}.
+- Suspicion levels: Low = {1, 2}, Moderate = {3, 4}, High = {5}. The mapping was not shown to participants.
+- A final assessment of BI-RADS 0 falls within no level; band agreement is reported both excluding such responses and counting them as departures.
+- Block order is taken from the row order in the case file (a participant's first three rows are their first block).
+- Scoring: SUS in the standard way (0-100). Adapted NASA-TLX: six items on 1-10, unweighted, the performance item reverse-scored (11 - x), composite = mean of the six. TiA: Koerber's key, items 5, 7, 10, 15 and 16 reverse-scored (6 - x), each subscale = mean of its items.
+- Wilcoxon signed-rank test: zero differences dropped, tied differences given average ranks, exact two-sided p from all 2^k sign assignments.
+
+## Data
+- `data/mimbcdui_uta21_case_data.csv`: one row per observation (48). Columns: `scenario_id`, `participant_id`, `category_level`, `expertise_level`, `condition` (1 = C1, 2 = C2), `case_id`, `time_on_task` (h:mm:ss), `birads_assistant`, `birads_radiologist`, `action` (`accept`, `edit->accept`, `reject`). In C2, `birads_radiologist` may also record the level the participant selected, e.g. `4 (H)`; only the number is used for agreement. Time on task, the final BI-RADS and the action were coded from the session screen recordings.
+- `data/mimbcdui_uta21_questionnaire_answers.csv`: one row per participant and condition (16), with the SUS (items 1-10), NASA-TLX (items 11-16) and TiA (items 17-35) answers in the order administered.
+- `data/case_provenance.csv`: the source of each case in the UTA11 rates and DICOM datasets (patient identifier, BI-RADS field used, dataset commits).
+
+Participants are identified only by code (P2-P4, P6-P10).
 
 ## Visualizations
 
@@ -41,7 +53,7 @@
 - **Novices (n=4):** M = 63.12 → 70.00
 - **Excluding P6:** M diff = -3.93
 
-### NASA-TLX
+### NASA-TLX (adapted, 1-10)
 - **C1:** M = 4.17
 - **C2:** M = 4.65
 - **Paired difference:** M = 0.48, 95% CI [-1.06, 2.02]
@@ -144,6 +156,7 @@
 - **Effect sizes:** d_z = 0.02, r_rb = 0.11
 - **First block (n=24):** M = 159.9, Mdn = 156.5, SD = 66.7
 - **Second block (n=24):** M = 111.7, Mdn = 95.5, SD = 66.4
+- **By block and condition (mean):** first block C1 = 160.9, C2 = 158.1; second block C1 = 92.0, C2 = 123.5
 - **Two modalities (n=19):** M = 112.3, Mdn = 98.0, SD = 54.4
 - **Three modalities (n=29):** M = 151.2, Mdn = 153.0, SD = 75.8
 - **Experts (n=24):** M = 121.5, Mdn = 110.0, SD = 69.0 (C1 = 103.2, C2 = 139.8)
@@ -188,10 +201,34 @@
 - **P4 (expert), C2, c07:** assistant BI-RADS 4 (Moderate), two modalities
 - **P7 (expert), C2, c10:** assistant BI-RADS 5 (High), three modalities
 
+### Actions on the Suggestion
+| Condition | Accept | Edit, then accept | Reject |
+|---|---:|---:|---:|
+| C1 | 15 | 5 | 4 |
+| C2 | 12 | 2 | 10 |
+
+- **Experts:** C1 = 8 accept, 1 edit, 3 reject; C2 = 4 accept, 0 edit, 8 reject
+- **Novices:** C1 = 7 accept, 4 edit, 1 reject; C2 = 8 accept, 2 edit, 2 reject
+- **Excluding repeated observations:** C1 = 13 / 5 / 3 (n=21); C2 = 8 / 1 / 8 (n=17)
+- **Excluding P6:** C1 = 14 / 4 / 3 (n=21); C2 = 12 / 2 / 7 (n=21)
+- **Rejections per participant (C1 → C2):** P4 0 → 2, P6 1 → 3, P7 0 → 2, P8 2 → 1, P2 1 → 1, P3 0 → 0, P9 0 → 0, P10 0 → 1
+
+| Level | C1 accept / edit / reject | C2 accept / edit / reject |
+|---|---:|---:|
+| Low | 7 / 4 / 3 | 7 / 0 / 3 |
+| Moderate | 6 / 1 / 1 | 1 / 2 / 5 |
+| High | 2 / 0 / 0 | 4 / 0 / 2 |
+
+- **Final category different from the assistant's (excluding BI-RADS 0):** C1 = 0 accept, 5 edit, 4 reject; C2 = 4 accept, 1 edit, 6 reject
+- **BI-RADS 0 responses:** all 3 recorded as rejections (C2)
+- **C2 rejections with the final category inside the level presented:** P6 c03 (2 → 2), P6 c08 (4 → 3)
+- **C2 acceptances with the final category outside the level presented:** P4 c04 (2 → 3)
+- **Selected level differing from the mapping of the recorded category:** P3 c08 (category 4, level H, edit then accept); P4 c04 (category 3, level L, accept)
+
 ## Reproducing
 
 ```bash
 Rscript src/uta21_analysis.R data/mimbcdui_uta21_case_data.csv data/mimbcdui_uta21_questionnaire_answers.csv output uta21_analysis_results.txt
 ```
 
-Base R only; no packages required. All four arguments are optional and default to the values shown (case data, questionnaire answers, output folder, results file), resolved from the working directory. The script prints every value above and also saves that printout, headed by the run date, the R version and the input files, to `output/uta21_analysis_results.txt`. It writes the four figures to `output/` as PNG.
+Base R only; no packages required. All four arguments are optional and default to the values shown (case data, questionnaire answers, output folder, results file), resolved from the working directory. The script prints every value above and also saves that printout, headed by the run date, the R version and the input files, to `output/uta21_analysis_results.txt`. It writes the four figures to `output/` as PNG. The results in `output/` were produced with R 4.5.1.
