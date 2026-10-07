@@ -1,4 +1,4 @@
-Run: 2026-10-07 08:01:28 WEST | R version 4.5.1 (2025-06-13 ucrt) 
+Run: 2026-10-07 12:29:10 WEST | R version 4.5.1 (2025-06-13 ucrt) 
 Case data: data/mimbcdui_uta21_case_data.csv | Questionnaires: data/mimbcdui_uta21_questionnaire_answers.csv 
 
 ==============================================================================
@@ -49,6 +49,12 @@ C2 24 136.5  145.5 68.6
    n  mean median   sd
 1 24 159.9  156.5 66.7
 2 24 111.7   95.5 66.4
+
+By block and condition (mean):
+     cond
+block    C1    C2
+    1 160.9 158.1
+    2  92.0 123.5
 
 By number of modalities:
    n  mean median   sd
