@@ -1,53 +1,40 @@
 # UTA21 evaluation analysis
 
-This R project scores the included SUS, adapted NASA-TLX, and Trust in Automation (TiA) responses, compares C1 and C2 within participant, summarizes task time and assistant-participant BI-RADS agreement, and describes condition-order patterns. It produces a rendered HTML report, publication-ready PNG figures, and CSV summary tables from the source data.
+A reproducible R project for scoring the included UTA21 questionnaire data, comparing C1 and C2 within participant, summarizing task time and assistant-participant BI-RADS agreement, and describing condition-order patterns.
 
-## Run from the project root
+## Run
 
-Install the project dependencies once:
+Install the two project dependencies once:
 
 ```r
-install.packages(c("ggplot2", "rmarkdown", "knitr"))
+install.packages(c("ggplot2", "rmarkdown"))
 ```
 
-Then run:
+From the project root, run:
 
 ```sh
 Rscript scripts/run_analysis.R
 ```
 
-The command creates `output/uta21_analysis_report.html`, `output/figures/`, and `output/tables/`. Open the HTML file in a browser. You can also open `sa_uta21_results.Rproj` in RStudio and run `scripts/run_analysis.R`.
-
-The project root is located from the runner script, so the command also works when called from another working directory:
-
-```sh
-Rscript /path/to/sa-uta21-results/scripts/run_analysis.R
-```
+The runner also works when called by absolute path from another directory. It writes the report to `output/uta21_analysis_report.html`, figures to `output/figures/`, and CSV tables to `output/tables/`.
 
 ## Project layout
 
-```text
-R/analysis.R                      Data checks, score calculations, statistics, tables, and plots
-scripts/run_analysis.R            Root-aware entry point and report renderer
-report/uta21_analysis_report.Rmd   Narrative HTML report
-data/                              Included UTA21 source CSV files
-output/figures/                    Appendix-ready charts
-output/tables/                     Analysis tables in CSV format
-```
+- `R/analysis.R`: reads and validates source CSVs, scores measures, computes statistics, writes tables and figures.
+- `scripts/run_analysis.R`: locates the project root, runs the analysis, and renders the report.
+- `report/uta21_analysis_report.Rmd`: narrative report sourced from the generated outputs.
+- `data/`: included case, questionnaire, and case-provenance CSVs.
+- `output/`: generated HTML report, figures, and summary tables.
 
-The provenance CSV is retained as source documentation and is not used to derive the participant outcome summaries.
+## Analysis conventions
 
-## Scoring and analysis conventions
+- C1 is Clinical-First; C2 is Regulatory-First. Paired differences are C2 minus C1.
+- SUS uses the standard alternating item key and 0–100 transformation.
+- The adapted NASA-TLX is the unweighted mean of six 1–10 items, with performance reversed as `11 - response`.
+- TiA uses the repository's Koerber item mapping; items 5, 7, 10, 15, and 16 are reversed as `6 - response`.
+- Paired questionnaire comparisons report paired-t 95% confidence intervals, Cohen's dz, exact signed-rank p-values, and rank-biserial effect sizes. The small sample makes inference exploratory; results are unadjusted for multiple comparisons.
+- Time is summarized per case. Paired comparisons average within participant and condition so every participant has equal weight.
+- BI-RADS agreement is descriptive. Exact agreement requires the same numeric category. Bands are Low (1–2), Moderate (3–4), and High (5); BI-RADS 0 is shown both excluded and as a departure.
+- Block position follows case row order; each participant's first three records are treated as the first block. Order splits are descriptive.
 
-- C1 is Clinical-First; C2 is Regulatory-First. Differences are C2 minus C1.
-- SUS is scored with the standard alternating positive/negative item key and scaled to 0–100.
-- Adapted NASA-TLX is the unweighted mean of six 1–10 items; the performance item is reversed as `11 - response`.
-- TiA subscales use the existing Koerber item mapping in the analysis script; items 5, 7, 10, 15, and 16 are reversed as `6 - response`.
-- Questionnaire tests are paired by participant. The report includes paired t confidence intervals, Cohen's dz, and Wilcoxon signed-rank p-values. The sample is small; inferential results are exploratory, and no multiplicity adjustment is applied.
-- Time on task is summarized per case and compared across conditions using each participant's condition mean. Figures also show case-level distributions by experience and observed block.
-- Exact BI-RADS agreement requires equal numeric categories. Suspicion bands are Low (1–2), Moderate (3–4), and High (5). Band agreement excludes participant BI-RADS 0 because it cannot be assigned to a band; exact agreement keeps 0 as a valid numeric response.
-- Block order follows row order in the case CSV: a participant's first three rows are treated as the first block. Treat order effects as descriptive.
-
-## Reproducibility notes
-
-The project uses base R for data handling and statistical calculations, with `ggplot2` for figures and `rmarkdown`/`knitr` for the report. The current data have eight participants and 48 case observations. No data are downloaded or modified by the analysis. Package installation is a one-time setup step; no lockfile is currently included.
+The analysis does not treat agreement with the assistant as diagnostic accuracy against a clinical reference standard.
