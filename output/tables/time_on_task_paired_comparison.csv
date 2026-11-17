@@ -1,0 +1,2 @@
+"measure","n","C1_mean","C1_sd","C2_mean","C2_sd","mean_difference_C2_minus_C1","CI95_low","CI95_high","cohens_dz","wilcoxon_V","wilcoxon_p","decreased","increased","unchanged"
+"Mean time per participant (seconds)",8,135.083333333333,49.4129826780661,136.5,52.1685303181483,1.41666666666667,-68.7592704335344,71.5926037668678,0.0168770524662558,20,0.833634883024682,3,5,0

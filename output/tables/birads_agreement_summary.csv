@@ -1,0 +1,9 @@
+"condition","expertise_level","measure","n","agreements","proportion"
+"C1","expert","Exact agreement",12,8,0.666666666666667
+"C2","expert","Exact agreement",12,3,0.25
+"C1","novice","Exact agreement",12,7,0.583333333333333
+"C2","novice","Exact agreement",12,7,0.583333333333333
+"C1","expert","Suspicion-band agreement",12,10,0.833333333333333
+"C2","expert","Suspicion-band agreement",9,5,0.555555555555556
+"C1","novice","Suspicion-band agreement",12,8,0.666666666666667
+"C2","novice","Suspicion-band agreement",12,9,0.75

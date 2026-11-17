@@ -1,0 +1,148 @@
+---
+title: "UTAUT 2021 Evaluation: Analysis Report"
+subtitle: "Questionnaires, task time, agreement, and condition order"
+author: "Reproducible analysis from the included UTA21 CSV data"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    number_sections: true
+    theme: flatly
+    df_print: paged
+params:
+  project_root: "."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE,
+                      fig.align = "center", out.width = "96%")
+root <- normalizePath(params$project_root, winslash = "/", mustWork = TRUE)
+knitr::opts_knit$set(root.dir = root)
+tab <- file.path(root, "output", "tables")
+fig <- file.path(root, "output", "figures")
+read_out <- function(file) read.csv(file.path(tab, file), check.names = FALSE)
+fmt <- function(x, digits = 2) ifelse(is.na(x), "—", formatC(x, digits = digits, format = "f"))
+```
+
+## Overview
+
+This report compares the **Clinical-First (C1)** and **Regulatory-First (C2)** conditions using the supplied case and questionnaire records. Each questionnaire comparison is paired within participant. Score differences are calculated as **C2 minus C1**, so negative values indicate lower scores in C2. Time-on-task and agreement summaries use case-level observations; participant BI-RADS 0 responses are excluded from suspicion-band agreement because they do not map to a band.
+
+The questionnaire sample is small, so inferential results should be interpreted as exploratory. Confidence intervals and standardized paired effects are reported alongside raw condition scores and the signed-rank test. Expertise and order splits are descriptive and are not treated as adequately powered interaction tests.
+
+```{r sample}
+q <- read_out("questionnaire_paired_comparisons.csv")
+t <- read_out("time_on_task_summary.csv")
+a <- read_out("birads_agreement_summary.csv")
+cat(sprintf("There are %d participants with paired questionnaire records and %d case observations.\n\n",
+            max(q$n), sum(t$n)))
+knitr::kable(data.frame(Participants = max(q$n), Case_observations = sum(t$n),
+                        Questionnaire_measures = nrow(q)), caption = "Analysis sample")
+```
+
+## Questionnaire measures
+
+SUS uses the standard alternating-item scoring and 0–100 transformation. The adapted NASA-TLX score is the unweighted mean of six 1–10 items, with the performance item reversed. Trust in Automation (TiA) subscales follow the repository's Koerber key; items 5, 7, 10, 15, and 16 are reverse-scored before subscale means are calculated. These are study-specific adaptations, and comparisons should be interpreted with that scoring context.
+
+```{r questionnaire-figure, fig.width=9, fig.height=7}
+knitr::include_graphics(file.path(fig, "questionnaire_scores.png"))
+```
+
+```{r questionnaire-table}
+q$C1 <- paste0(fmt(q$C1_mean), " (", fmt(q$C1_sd), ")")
+q$C2 <- paste0(fmt(q$C2_mean), " (", fmt(q$C2_sd), ")")
+q$Difference <- fmt(q$mean_difference_C2_minus_C1)
+q$`95% CI` <- paste0("[", fmt(q$CI95_low), ", ", fmt(q$CI95_high), "]")
+q$`Cohen's dz` <- fmt(q$cohens_dz)
+q$`Wilcoxon p` <- fmt(q$wilcoxon_p, 3)
+knitr::kable(q[c("measure", "n", "C1", "C2", "Difference", "95% CI", "Cohen's dz", "Wilcoxon p")],
+             col.names = c("Measure", "n", "C1 mean (SD)", "C2 mean (SD)", "Mean difference", "95% CI", "Cohen's dz", "Signed-rank p"),
+             caption = "Paired questionnaire comparisons (C2 minus C1)")
+```
+
+The confidence intervals above use the paired t distribution. The signed-rank p-values use the large-sample approximation (zeros omitted); they are shown as a complementary rank-based test. Neither test adjusts for multiplicity across the questionnaire measures. The effect size `Cohen's dz` is the mean paired difference divided by the standard deviation of participant differences.
+
+```{r forest, fig.width=9, fig.height=5.5}
+knitr::include_graphics(file.path(fig, "questionnaire_paired_differences.png"))
+```
+
+### Participant groups
+
+```{r groups}
+g <- read_out("questionnaire_by_experience.csv")
+g$mean <- fmt(g$mean)
+g$sd <- fmt(g$sd)
+knitr::kable(g, col.names = c("Measure", "Experience", "Condition", "n", "Mean", "SD"),
+             caption = "Descriptive questionnaire scores by experience and condition")
+```
+
+## Time on task
+
+Each case-level duration is parsed from `h:mm:ss` to seconds. The paired condition comparison first averages observations within participant and condition, giving each participant equal weight. The additional plots show case-level distributions, including differences in experience group and block position.
+
+```{r time-figure, fig.width=8.2, fig.height=4.8}
+knitr::include_graphics(file.path(fig, "time_on_task.png"))
+```
+
+```{r time-block-figure, fig.width=8.2, fig.height=4.8}
+knitr::include_graphics(file.path(fig, "time_by_block.png"))
+```
+
+```{r time-table}
+tt <- read_out("time_on_task_summary.csv")
+tt$mean_seconds <- fmt(tt$mean_seconds, 1)
+tt$median_seconds <- fmt(tt$median_seconds, 1)
+tt$sd_seconds <- fmt(tt$sd_seconds, 1)
+knitr::kable(tt, col.names = c("Condition", "Experience", "n", "Mean seconds", "Median seconds", "SD seconds"),
+             caption = "Time on task by condition and experience")
+tp <- read_out("time_on_task_paired_comparison.csv")
+knitr::kable(data.frame(n = tp$n, C1_mean = fmt(tp$C1_mean, 1), C2_mean = fmt(tp$C2_mean, 1),
+                        difference = fmt(tp$mean_difference_C2_minus_C1, 1),
+                        CI95 = paste0("[", fmt(tp$CI95_low, 1), ", ", fmt(tp$CI95_high, 1), "]"),
+                        dz = fmt(tp$cohens_dz), wilcoxon_p = fmt(tp$wilcoxon_p, 3)),
+             caption = "Paired comparison of participant mean task time (seconds)")
+```
+
+## Assistant and participant BI-RADS agreement
+
+Exact agreement requires the same BI-RADS number. Suspicion-band agreement groups BI-RADS 1–2 as Low, 3–4 as Moderate, and 5 as High. BI-RADS 0 cannot be mapped and is excluded from the band-agreement denominator; exact agreement retains valid numeric 0 responses. The participant-level observations are repeated and case allocation differs between conditions, so agreement rates are descriptive rather than independent-sample condition tests.
+
+```{r agreement-figure, fig.width=8.2, fig.height=4.8}
+knitr::include_graphics(file.path(fig, "birads_agreement.png"))
+```
+
+```{r agreement-table}
+a$Rate <- paste0(a$agreements, "/", a$n, " (", fmt(100 * a$proportion, 1), "%)")
+knitr::kable(a[c("condition", "expertise_level", "measure", "Rate")],
+             col.names = c("Condition", "Experience", "Agreement measure", "Agreement"),
+             caption = "Agreement by condition and experience")
+```
+
+## Condition order
+
+Block order is inferred from the row order in the case CSV, with each participant's first three rows treated as block 1. This is an assumption inherited from the study record. Condition-order questionnaire summaries use participant-level C2–C1 differences; the table is descriptive because the order subgroups are very small.
+
+```{r order-table}
+o <- read_out("condition_order_questionnaire_differences.csv")
+o$mean_difference <- fmt(o$mean_difference)
+o$sd <- fmt(o$sd)
+knitr::kable(o, col.names = c("Measure", "Condition completed first", "n", "Mean C2–C1", "SD"),
+             caption = "Questionnaire differences by condition order")
+```
+
+```{r order-time-table}
+ot <- read_out("condition_order_by_participant.csv")
+ot$first_block_mean_seconds <- fmt(ot$first_block_mean_seconds, 1)
+ot$second_block_mean_seconds <- fmt(ot$second_block_mean_seconds, 1)
+ot$time_change_second_minus_first <- fmt(ot$time_change_second_minus_first, 1)
+knitr::kable(ot, col.names = c("Participant", "Experience", "First condition", "First block mean (s)",
+                               "Second block mean (s)", "Change (s)"),
+             caption = "Observed order and block time per participant")
+```
+
+## Interpretation and limitations
+
+The report is a transparent summary of the included records, not a causal estimate of presentation format. The sample comprises eight participants, case allocation differs across conditions, and the condition-order summaries have small cells. Repeated case presentations should be considered when interpreting case-level outcomes. Agreement measures describe consistency with the assistant and do not establish diagnostic accuracy against a clinical reference standard.
+
+All tables and figures are also saved as separate files under `output/tables/` and `output/figures/`. See `README.md` for the one-command workflow and scoring details.

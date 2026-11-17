@@ -1,0 +1,129 @@
+"participant_id","expertise_level","condition","measure","score"
+"P3","novice","C1","SUS",90
+"P3","novice","C2","SUS",95
+"P2","novice","C1","SUS",30
+"P2","novice","C2","SUS",30
+"P6","expert","C1","SUS",90
+"P6","expert","C2","SUS",5
+"P4","expert","C2","SUS",42.5
+"P4","expert","C1","SUS",97.5
+"P7","expert","C1","SUS",65
+"P7","expert","C2","SUS",65
+"P8","expert","C2","SUS",75
+"P8","expert","C1","SUS",75
+"P9","novice","C1","SUS",70
+"P9","novice","C2","SUS",80
+"P10","novice","C2","SUS",75
+"P10","novice","C1","SUS",62.5
+"P3","novice","C1","NASA-TLX",3.33333333333333
+"P3","novice","C2","NASA-TLX",2.33333333333333
+"P2","novice","C1","NASA-TLX",7
+"P2","novice","C2","NASA-TLX",7
+"P6","expert","C1","NASA-TLX",1
+"P6","expert","C2","NASA-TLX",5.5
+"P4","expert","C2","NASA-TLX",4.33333333333333
+"P4","expert","C1","NASA-TLX",2.83333333333333
+"P7","expert","C1","NASA-TLX",2.33333333333333
+"P7","expert","C2","NASA-TLX",3.16666666666667
+"P8","expert","C2","NASA-TLX",4.83333333333333
+"P8","expert","C1","NASA-TLX",5.66666666666667
+"P9","novice","C1","NASA-TLX",5.83333333333333
+"P9","novice","C2","NASA-TLX",5.33333333333333
+"P10","novice","C2","NASA-TLX",4.66666666666667
+"P10","novice","C1","NASA-TLX",5.33333333333333
+"P3","novice","C1","Reliability / competence",3.33333333333333
+"P3","novice","C2","Reliability / competence",2.83333333333333
+"P2","novice","C1","Reliability / competence",2.33333333333333
+"P2","novice","C2","Reliability / competence",2.16666666666667
+"P6","expert","C1","Reliability / competence",4.16666666666667
+"P6","expert","C2","Reliability / competence",1.66666666666667
+"P4","expert","C2","Reliability / competence",1.16666666666667
+"P4","expert","C1","Reliability / competence",2.83333333333333
+"P7","expert","C1","Reliability / competence",2.5
+"P7","expert","C2","Reliability / competence",2.5
+"P8","expert","C2","Reliability / competence",3.66666666666667
+"P8","expert","C1","Reliability / competence",4.16666666666667
+"P9","novice","C1","Reliability / competence",3.16666666666667
+"P9","novice","C2","Reliability / competence",3
+"P10","novice","C2","Reliability / competence",3
+"P10","novice","C1","Reliability / competence",3.16666666666667
+"P3","novice","C1","Understanding / predictability",2.75
+"P3","novice","C2","Understanding / predictability",2.5
+"P2","novice","C1","Understanding / predictability",3.5
+"P2","novice","C2","Understanding / predictability",2.75
+"P6","expert","C1","Understanding / predictability",4.5
+"P6","expert","C2","Understanding / predictability",1.5
+"P4","expert","C2","Understanding / predictability",1.25
+"P4","expert","C1","Understanding / predictability",4.5
+"P7","expert","C1","Understanding / predictability",2.75
+"P7","expert","C2","Understanding / predictability",3.5
+"P8","expert","C2","Understanding / predictability",4
+"P8","expert","C1","Understanding / predictability",4.25
+"P9","novice","C1","Understanding / predictability",3
+"P9","novice","C2","Understanding / predictability",3.5
+"P10","novice","C2","Understanding / predictability",3.75
+"P10","novice","C1","Understanding / predictability",3.5
+"P3","novice","C1","Familiarity",4
+"P3","novice","C2","Familiarity",4
+"P2","novice","C1","Familiarity",2
+"P2","novice","C2","Familiarity",2
+"P6","expert","C1","Familiarity",5
+"P6","expert","C2","Familiarity",1
+"P4","expert","C2","Familiarity",1
+"P4","expert","C1","Familiarity",4.5
+"P7","expert","C1","Familiarity",2.5
+"P7","expert","C2","Familiarity",2
+"P8","expert","C2","Familiarity",5
+"P8","expert","C1","Familiarity",5
+"P9","novice","C1","Familiarity",3
+"P9","novice","C2","Familiarity",4
+"P10","novice","C2","Familiarity",4.5
+"P10","novice","C1","Familiarity",5
+"P3","novice","C1","Intention of developers",3.5
+"P3","novice","C2","Intention of developers",3
+"P2","novice","C1","Intention of developers",4
+"P2","novice","C2","Intention of developers",4
+"P6","expert","C1","Intention of developers",4.5
+"P6","expert","C2","Intention of developers",2.5
+"P4","expert","C2","Intention of developers",5
+"P4","expert","C1","Intention of developers",5
+"P7","expert","C1","Intention of developers",3
+"P7","expert","C2","Intention of developers",3.5
+"P8","expert","C2","Intention of developers",4.5
+"P8","expert","C1","Intention of developers",4.5
+"P9","novice","C1","Intention of developers",3
+"P9","novice","C2","Intention of developers",3
+"P10","novice","C2","Intention of developers",3
+"P10","novice","C1","Intention of developers",3
+"P3","novice","C1","Propensity to trust",2.33333333333333
+"P3","novice","C2","Propensity to trust",2.33333333333333
+"P2","novice","C1","Propensity to trust",2.33333333333333
+"P2","novice","C2","Propensity to trust",2.33333333333333
+"P6","expert","C1","Propensity to trust",5
+"P6","expert","C2","Propensity to trust",3
+"P4","expert","C2","Propensity to trust",2.33333333333333
+"P4","expert","C1","Propensity to trust",2.33333333333333
+"P7","expert","C1","Propensity to trust",3
+"P7","expert","C2","Propensity to trust",3
+"P8","expert","C2","Propensity to trust",3.33333333333333
+"P8","expert","C1","Propensity to trust",3.33333333333333
+"P9","novice","C1","Propensity to trust",2.66666666666667
+"P9","novice","C2","Propensity to trust",2.66666666666667
+"P10","novice","C2","Propensity to trust",2
+"P10","novice","C1","Propensity to trust",3
+"P3","novice","C1","Trust in automation",3
+"P3","novice","C2","Trust in automation",3
+"P2","novice","C1","Trust in automation",2
+"P2","novice","C2","Trust in automation",2
+"P6","expert","C1","Trust in automation",4
+"P6","expert","C2","Trust in automation",1
+"P4","expert","C2","Trust in automation",1
+"P4","expert","C1","Trust in automation",3
+"P7","expert","C1","Trust in automation",3
+"P7","expert","C2","Trust in automation",2.5
+"P8","expert","C2","Trust in automation",4
+"P8","expert","C1","Trust in automation",4
+"P9","novice","C1","Trust in automation",3
+"P9","novice","C2","Trust in automation",3
+"P10","novice","C2","Trust in automation",3
+"P10","novice","C1","Trust in automation",3

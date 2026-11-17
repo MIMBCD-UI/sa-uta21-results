@@ -1,0 +1,17 @@
+"measure","first_condition","n","mean_difference","sd"
+"Familiarity","C1",5,-0.7,1.92353840616713
+"Intention of developers","C1",5,-0.4,0.961769203083567
+"NASA-TLX","C1",5,0.766666666666667,2.19405763116854
+"Propensity to trust","C1",5,-0.4,0.894427190999916
+"Reliability / competence","C1",5,-0.666666666666667,1.04083299973307
+"SUS","C1",5,-14,39.9061398784698
+"Trust in automation","C1",5,-0.7,1.30384048104053
+"Understanding / predictability","C1",5,-0.55,1.49373692462897
+"Familiarity","C2",3,-1.33333333333333,1.89296944860009
+"Intention of developers","C2",3,0,0
+"NASA-TLX","C2",3,-1.48029736616688e-16,1.30170827931778
+"Propensity to trust","C2",3,-0.333333333333333,0.577350269189626
+"Reliability / competence","C2",3,-0.777777777777778,0.787635937708768
+"SUS","C2",3,-14.1666666666667,35.9107690440254
+"Trust in automation","C2",3,-0.666666666666667,1.15470053837925
+"Understanding / predictability","C2",3,-1.08333333333333,1.89296944860009

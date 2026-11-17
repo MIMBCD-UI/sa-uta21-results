@@ -1,0 +1,33 @@
+"measure","expertise_level","condition","n","mean","sd"
+"Familiarity","expert","C1",4,4.25,1.19023807142381
+"Intention of developers","expert","C1",4,4.25,0.866025403784439
+"NASA-TLX","expert","C1",4,2.95833333333333,1.96438191202635
+"Propensity to trust","expert","C1",4,3.41666666666667,1.13447654759234
+"Reliability / competence","expert","C1",4,3.41666666666667,0.876651879892195
+"SUS","expert","C1",4,81.875,14.6308748883995
+"Trust in automation","expert","C1",4,3.5,0.577350269189626
+"Understanding / predictability","expert","C1",4,4,0.841625411530173
+"Familiarity","novice","C1",4,3.5,1.29099444873581
+"Intention of developers","novice","C1",4,3.375,0.478713553878169
+"NASA-TLX","novice","C1",4,5.375,1.52979664589048
+"Propensity to trust","novice","C1",4,2.58333333333333,0.319142369252113
+"Reliability / competence","novice","C1",4,3,0.45133546692422
+"SUS","novice","C1",4,63.125,24.9478622998712
+"Trust in automation","novice","C1",4,2.75,0.5
+"Understanding / predictability","novice","C1",4,3.1875,0.375
+"Familiarity","expert","C2",4,2.25,1.89296944860009
+"Intention of developers","expert","C2",4,3.875,1.10867789130417
+"NASA-TLX","expert","C2",4,4.45833333333333,0.98483877229088
+"Propensity to trust","expert","C2",4,2.91666666666667,0.419435246403931
+"Reliability / competence","expert","C2",4,2.25,1.092906420717
+"SUS","expert","C2",4,46.875,31.0493558709356
+"Trust in automation","expert","C2",4,2.125,1.43614066163451
+"Understanding / predictability","expert","C2",4,2.5625,1.39006894313436
+"Familiarity","novice","C2",4,3.625,1.10867789130417
+"Intention of developers","novice","C2",4,3.25,0.5
+"NASA-TLX","novice","C2",4,4.83333333333333,1.9340994650588
+"Propensity to trust","novice","C2",4,2.33333333333333,0.272165526975909
+"Reliability / competence","novice","C2",4,2.75,0.396746023807936
+"SUS","novice","C2",4,70,27.9880927062444
+"Trust in automation","novice","C2",4,2.75,0.5
+"Understanding / predictability","novice","C2",4,3.125,0.595119035711904
