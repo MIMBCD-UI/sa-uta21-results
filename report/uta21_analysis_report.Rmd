@@ -121,6 +121,59 @@ ot$time_change_second_minus_first <- fmt(ot$time_change_second_minus_first, 1)
 knitr::kable(ot, col.names = c("Participant", "Experience", "First condition", "First block mean (s)", "Second block mean (s)", "Change (s)"), caption = "Observed order and time per participant")
 ```
 
+## Supplementary advanced analyses
+
+These exploratory additions preserve the primary analyses above and use the included records only. They do not turn the non-equivalent case sets into a randomized or fully adjusted comparison.
+
+### Questionnaire robustness
+
+The estimand remains the mean within-participant C2 minus C1 score difference for each scale. Percentile intervals resample the eight participants and are shown alongside the original exact signed-rank p-values with Holm adjustment across the eight questionnaire measures. The bootstrap has limited coverage guarantees at this sample size; the adjusted p-values remain exploratory and do not address scale validity or selection/generalizability.
+
+```{r advanced-questionnaires}
+aq <- read_out("advanced_questionnaire_sensitivity.csv")
+aq$mean_difference_C2_minus_C1 <- fmt(aq$mean_difference_C2_minus_C1)
+aq$bootstrap95_low <- fmt(aq$bootstrap95_low)
+aq$bootstrap95_high <- fmt(aq$bootstrap95_high)
+aq$exact_signed_rank_p <- fmt(aq$exact_signed_rank_p, 3)
+aq$holm_p <- fmt(aq$holm_p, 3)
+knitr::kable(aq, col.names = c("Measure", "Participants", "Mean C2−C1", "Bootstrap 95% low", "Bootstrap 95% high", "Exact signed-rank p", "Holm-adjusted p"), caption = "Participant-level questionnaire sensitivity")
+```
+
+### Task-time overlap analysis
+
+The primary estimand here is the geometric mean C2:C1 time ratio among participant-case pairs observed in both conditions. This explicitly targets the small overlap subset and assumes the matched presentation times are meaningfully comparable on a log scale. It does not estimate an overall condition effect. Case coverage and the unique first-presentation sensitivity are shown separately because repeated cases all occur in the second block and block is entangled with condition order.
+
+```{r advanced-time}
+td <- read_out("advanced_time_design_diagnostics.csv")
+knitr::kable(td, col.names = c("Design quantity", "Value"), caption = "Time analysis overlap")
+pt <- read_out("advanced_matched_case_time_by_participant.csv")
+if (nrow(pt)) {
+  pt$geometric_mean_ratio_C2_to_C1 <- fmt(pt$geometric_mean_ratio_C2_to_C1, 2)
+  knitr::kable(pt, col.names = c("Participant", "Matched cases", "Mean log C2:C1 ratio", "Geometric mean C2:C1 ratio"), caption = "Matched case-time ratios by participant")
+}
+ct <- read_out("advanced_case_time_coverage.csv")
+ft <- read_out("advanced_first_presentation_time.csv")
+knitr::kable(ct, caption = "Case-level time coverage by condition")
+knitr::kable(ft, caption = "Task time using first presentations only")
+```
+
+### Agreement weighting and repeated-case sensitivity
+
+Agreement with the assistant is an interaction outcome only. These tables compare case-weighted rates with the mean of participant-specific rates and repeat the summaries using first presentations only. The latter addresses the ten repeated participant-case exposures; it does not make the condition case sets exchangeable. No cluster-based confidence interval or mixed logistic condition model is reported because eight participants and ten cases are too few for stable cluster-level inference.
+
+```{r advanced-agreement}
+aw <- read_out("advanced_agreement_weighting.csv")
+aw$case_weighted_rate <- fmt(100 * aw$case_weighted_rate, 1)
+aw$participant_weighted_rate <- fmt(100 * aw$participant_weighted_rate, 1)
+knitr::kable(aw, col.names = c("Measure", "Condition", "Case observations", "Case-weighted %", "Participants", "Participant-weighted %"), caption = "Agreement summaries by weighting")
+af <- read_out("advanced_first_presentation_agreement.csv")
+af$case_weighted_rate <- fmt(100 * af$case_weighted_rate, 1)
+af$participant_weighted_rate <- fmt(100 * af$participant_weighted_rate, 1)
+knitr::kable(af, col.names = c("Measure", "Condition", "First presentations", "Agreements", "Case-weighted %", "Participants", "Participant-weighted %"), caption = "Agreement using first presentations only")
+```
+
+The methods register in `output/tables/advanced_methods_register.csv` states each estimand, assumptions, diagnostics, and limitations. The analyses are descriptive or exploratory, and do not support causal or clinical conclusions.
+
 ## Interpretation and limitations
 
 The results summarize the supplied records and should not be read as a causal estimate of presentation format. The sample is small, case allocation differs between conditions, and repeated case presentations occur. Treat subgroup and order comparisons as descriptive. All tables and figures are also saved separately under `output/tables/` and `output/figures/`.

@@ -1,0 +1,5 @@
+"measure","condition","n_case_observations","case_weighted_rate","n_participants","participant_weighted_rate"
+"Exact agreement","C1",24,0.625,8,0.625
+"Suspicion-band agreement (BI-RADS 0 excluded)","C1",24,0.75,8,0.75
+"Exact agreement","C2",24,0.416666666666667,8,0.416666666666667
+"Suspicion-band agreement (BI-RADS 0 excluded)","C2",21,0.666666666666667,8,0.604166666666667

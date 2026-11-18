@@ -193,8 +193,12 @@ action_summary <- as.data.frame.matrix(table(cases$condition, cases$action))
 action_summary$condition <- rownames(action_summary)
 write_table(action_summary, "suggestion_actions.csv")
 
+# Keep advanced exploratory analyses and their outputs separate from the
+# established primary tables and figures.
+source(file.path(root, "R", "advanced_analysis.R"), local = environment())
+
 if (data_only) {
-  cat("Data-only analysis complete. Tables written to", table_dir, "\n")
+  cat("Data-only analysis complete. Primary and advanced tables written to", table_dir, "\n")
 } else {
   # Stable palettes, readable labels, and participant-level points for appendix figures.
   p_scores <- ggplot(score_long, aes(condition, score, group = participant_id, color = expertise_level)) +

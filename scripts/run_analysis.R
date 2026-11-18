@@ -18,6 +18,10 @@ if (!grepl("^(/|[A-Za-z]:[/\\])", script_path)) script_path <- file.path(getwd()
 root <- find_root(script_path)
 setwd(root)
 source(file.path(root, "R", "analysis.R"), local = new.env(parent = globalenv()))
+if (identical(Sys.getenv("UTA21_DATA_ONLY"), "true")) {
+  cat("Data-only analysis complete; HTML report rendering was skipped.\n")
+  quit(save = "no", status = 0)
+}
 if (!requireNamespace("rmarkdown", quietly = TRUE)) {
   stop("Install rmarkdown first: install.packages('rmarkdown')", call. = FALSE)
 }
